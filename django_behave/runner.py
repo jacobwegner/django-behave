@@ -264,6 +264,10 @@ if not hasattr(BaseRunner, 'add_arguments'):
 class DjangoBehaveOnlyTestSuiteRunner(DjangoBehaveTestSuiteRunner):
 
     def build_suite(self, test_labels, extra_tests=None, **kwargs):
+        # @@@ build the "normal" test suite, ensuring things like flushdb work as expected
+        existing_suite = super(DjangoBehaveOnlyTestSuiteRunner, self).build_suite(test_labels, extra_tests=extra_tests, **kwargs)
+
+        # build up a new suite of only features
         suite = unittest.TestSuite()
 
         for label in test_labels:
